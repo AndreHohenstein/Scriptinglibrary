@@ -15,7 +15,7 @@ $wtoff = (Get-AppxPackage Microsoft.WindowsTerminal).version
  }
 }
 
-#getting latest Windows Terminal version from GitHub 
+# getting latest Windows Terminal version from GitHub 
 $wturl        = 'https://github.com/microsoft/terminal/releases/latest'
 $wtrequest    = [System.Net.WebRequest]::Create($wturl)
 $wtresponse   = $wtrequest.GetResponse()
