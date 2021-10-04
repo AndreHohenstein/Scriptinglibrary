@@ -24,18 +24,64 @@ $wton         = $realTagUrl.split('/')[-1].Trim('v')
 $wtfileName   = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle"
 $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 
- # check and install Windows Terminal
- if ([string]"$wtoff" -ne [string]"$wton")
+# check and install Windows Terminal
+if ([string]"$wtoff" -ne [string]"$wton")
  {Write-Host "Download Windows Terminal $($wton)" -ForegroundColor Green
     
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($realwtUrl, $env:USERPROFILE+ "\Downloads\$wtfileName")
-   
-   Start-Sleep -Seconds 5
+ 
+    Start-Sleep -Seconds 5
 
-   Write-Host "Install Windows Terminal $($($wton))" -ForegroundColor Green
-   Add-AppxPackage -Path $env:USERPROFILE\Downloads\$wtfileName
-  }
+if ([string]"$wtoff" -ge [string]"$wton")
+ {Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green}
 
-  if ([string]"$wtoff" -ge [string]"$wton")
-  {Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green}
+# CheckSum
+$wtonhash = (Get-FileHash -InputStream ($webClient.OpenRead($realwtUrl))).Hash
+$wtoffhash =  (Get-FileHash -Path $env:USERPROFILE\Downloads\$wtfileName).Hash
+
+# Compute the hash value of a stream and verify the local file
+if ($wtonhash -eq $wtoffhash){
+ Write-Host "CheckSum OK" -ForegroundColor Green
+ }
+ else
+ {
+ Write-host "Checksum mismatch!" -ForegroundColor Red
+ Write-Host "Downloaded file Hash : $wtonhash $(($wtonhash) | Set-Content -path $env:USERPROFILE\Downloads\$wtfileName.Hash)" -ForegroundColor Yellow
+ }
+ Write-Host "Install Windows Terminal $($($wton))" -ForegroundColor Green
+ Add-AppxPackage -Path $env:USERPROFILE\Downloads\$wtfileName
+ Start-Sleep -Seconds 1
+ }
+
+# Windows Terminal Settings Location
+$wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+
+$ProgressPreference = 'SilentlyContinue' 
+# Apply my customized Windows Terminal Settings from GitHub
+$wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/profiles.json'
+Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
+Start-Sleep -Seconds 1
+
+
+# Check if Folder for Windows Terminal Resources exists
+$wtFolfer = $env:USERPROFILE+"\pictures\wt" 
+if(!(Test-Path -Path $wtFolfer -PathType Container)){New-Item -ItemType Directory -Path $wtFolfer | Out-Null}
+
+
+# Download Windows Terminal Resources
+$AzureCloudShellUrl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/AzureCloudShell.png'
+$BlackCloudRobotUrl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/BlackCloudRobot.png'
+$PSCoreAvatar       = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/PSCoreAvatar.png'
+
+Invoke-WebRequest -Uri $AzureCloudShellUrl -OutFile $env:USERPROFILE\pictures\wt\AzureCloudShell.png
+Start-Sleep -Seconds 1
+Invoke-WebRequest -Uri $BlackCloudRobotUrl -OutFile $env:USERPROFILE\pictures\wt\BlackCloudRobot.png
+Start-Sleep -Seconds 1
+Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCoreAvatar.png
+Start-Sleep -Seconds 1
+
+
+# open Windows Terminal from Powershell
+Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
+Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
