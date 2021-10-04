@@ -1,0 +1,182 @@
+// To view the default settings, hold "alt" while clicking on the "Settings" button.
+// For documentation on these settings, see: https://aka.ms/terminal-documentation
+{
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+
+    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+
+    "profiles":
+    {
+        "defaults":
+        {
+            // Put settings here that you want to apply to all profiles
+            "cursorShape": "vintage" 
+        },
+        "list":
+        [
+            {
+                // PowerShell 7
+                "acrylicOpacity": 0.80000000000000004,
+                "backgroundImage": "%userprofile%/pictures/wt/BlackCloudRobot.png",
+                "backgroundImageOpacity" : 0.3,
+                "colorScheme": "VibrantAHCT",                
+                "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe",
+                "font": 
+                {
+                    "face": "Cascadia Code"
+                },
+                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+                "hidden": false,
+                "icon": "%userprofile%/pictures/wt/PSCoreAvatar.png",
+                "name": "PowerShell ⚡",
+                "source": "Windows.Terminal.PowershellCore",
+                "useAcrylic": true
+            },
+            {
+                // Make changes here to the Windows PowerShell profile
+                "acrylicOpacity": 0.80000000000000004,
+                "colorScheme": "PowerShellAHCT",
+                "commandline": "powershell.exe",
+                "font": 
+                {
+                    "face": "Consolas"
+                },
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell",
+                "useAcrylic": true
+            },
+            {
+                // Make changes here to the Command Prompt profile
+                "commandline": "cmd.exe",		
+                "cursorShape": "bar",
+                "font": 
+                {
+                    "face": "Consolas"
+                },
+                "hidden": false,
+		"guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "name": "Command Prompt ⌨"
+             },
+             {
+                // Connects to Azure Cloud Shell
+                "colorScheme": "VanHelsing",
+		"guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+                "hidden": false,
+                "icon": "%userprofile%/pictures/wt/AzureCloudShell.png",
+                "name": "Azure Cloud Shell ☁",
+                "source": "Windows.Terminal.Azure",
+                "useAcrylic": true
+             }
+           
+        ]
+    },
+
+    // Add custom color schemes to this array
+    "schemes": [
+        {
+            // Color Scheme: VibrantAHCT
+            "background": "#16171D",
+            "black": "#878787",
+            "blue": "#44B4CC",
+            "brightBlack": "#E373C8",
+            "brightBlue": "#0000FF",
+            "brightCyan": "#19D1D8",
+            "brightGreen": "#81EC0D",
+            "brightPurple": "#FF00FF",
+            "brightRed": "#FF0000",
+            "brightWhite": "#E5E5E5",
+            "brightYellow": "#FFD93D",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#19D1D8",
+            "foreground": "#FFFFFF",
+            "green": "#CCFF04",
+            "name": "VibrantAHCT",
+            "purple": "#9933CC",
+            "red": "#FF6600",
+            "selectionBackground": "#FFFFFF",
+            "white": "#F5F5F5",
+            "yellow": "#FFD93D"
+        },
+	{
+	    // Color Scheme: PowerShellAHCT
+            "background": "#012456",
+            "black": "#000000",
+            "blue": "#0000FF",
+            "brightBlack": "#AAAAAA",
+            "brightBlue": "#44B4CC",
+            "brightCyan": "#19D1D8",
+            "brightGreen": "#81EC0D",
+            "brightPurple": "#FF00FF",
+            "brightRed": "#FF0000",
+            "brightWhite": "#E5E5E5",
+            "brightYellow": "#FFD93D",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#19D1D8",
+            "foreground": "#FFFFFF",
+            "green": "#00FF00",
+            "name": "PowerShellAHCT",
+            "purple": "#9933CC",
+            "red": "#FF6600",
+            "selectionBackground": "#FFFFFF",
+            "white": "#F5F5F5",
+            "yellow": "#FFD93D"
+        },
+        {
+            // Color Scheme: VanHelsing
+            "background": "#282A36",
+            "black": "#21222C",
+            "blue": "#BD93F9",
+            "brightBlack": "#6272A4",
+            "brightBlue": "#D6ACFF",
+            "brightCyan": "#A4FFFF",
+            "brightGreen": "#69FF94",
+            "brightPurple": "#FF92DF",
+            "brightRed": "#FF6E6E",
+            "brightWhite": "#FFFFFF",
+            "brightYellow": "#FFFFA5",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#8BE9FD",
+            "foreground": "#F8F8F2",
+            "green": "#50FA7B",
+            "name": "VanHelsing",
+            "purple": "#FF79C6",
+            "red": "#FF5555",
+            "selectionBackground": "#FFFFFF",
+            "white": "#F8F8F2",
+            "yellow": "#F1FA8C"
+        },
+    ],
+
+    // Add any keybinding overrides to this array.
+    // To unbind a default keybinding, set the command to "unbound"
+    "keybindings": [
+        {
+            "command" : "copy",
+            "keys" :["ctrl+c"]
+        },
+        {
+            "command" : "paste",
+            "keys" : ["ctrl+v"]
+        },
+        {
+            "command" : "find",
+            "keys":["ctrl+f"]
+        },
+        {
+            "command" : "closeTab",
+            "keys" : ["ctrl+w"]
+        },
+        {
+            "command" : "newTab",
+            "keys" : ["ctrl+t"]
+        },
+        {
+            "command": {
+                "action": "splitPane",
+                "split": "auto"
+            },
+            "keys":["ctrl+shift+t"]
+        }
+    ]
+}
