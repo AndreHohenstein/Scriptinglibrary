@@ -33,6 +33,23 @@
                 "useAcrylic": true
             },
             {
+                // PowerShell 7 Elevated
+                "acrylicOpacity": 0.80000000000000004,
+                "backgroundImage": "%userprofile%/pictures/wt/BlackCloudRobot.png",
+                "backgroundImageOpacity" : 0.3,
+                "colorScheme": "VibrantAHCT",                
+                "commandline": "%ProgramFiles%\\PowerShell\\7\\pwsh.exe -Command Start-Process -Verb RunAs wt \"-p'Elevated pwsh.exe -NoLogo -WorkingDirectory %userprofile%'\"",
+                "font": 
+                {
+                    "face": "Cascadia Code"
+                },
+                "guid": "{be639ab5-a497-476b-af37-2a3240ba3b8d}",
+                "hidden": false,
+                "icon": "%userprofile%/pictures/wt/PSCoreAvatar.png",
+                "name": "Elevated PowerShell ⚡",
+                "useAcrylic": true
+            },
+            {
                 // Make changes here to the Windows PowerShell profile
                 "acrylicOpacity": 0.80000000000000004,
                 "colorScheme": "PowerShellAHCT",
@@ -43,7 +60,7 @@
                 },
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
-                "name": "Windows PowerShell",
+                "name": "Windows PowerShell 🖥",
                 "useAcrylic": true
             },
             {
