@@ -1,9 +1,3 @@
-﻿$IsElevatedAdminRights = `
-([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:: `
-GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')
-
-if(-not $IsElevatedAdminRights) { throw 'process canceled! run this script with elevated permissions!'} else { 'this script run with admin privileges!' | Write-Warning }
-
 try {
 # Install Notepad++ latest Version
 $version = [Environment]::OSVersion.Version.ToString(2)
