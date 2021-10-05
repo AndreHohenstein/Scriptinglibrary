@@ -62,7 +62,7 @@ if ([string]"$notepadoff" -ge [string]"$notepadon") {
 
        Write-Host "Install Notepad++ $($($notepadon))" -ForegroundColor Green
  
-      Start-Process -FilePath $env:USERPROFILE\Downloads\$notepadfilename -ArgumentList "/S" -Verb RunAs -Wait
+      Start-Process -FilePath $env:USERPROFILE\Downloads\$notepadfilename -ArgumentList "/S" -Wait
        #Start-Sleep -Seconds 1
    }
 }
