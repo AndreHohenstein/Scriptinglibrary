@@ -25,7 +25,7 @@ $wtrequest    = [System.Net.WebRequest]::Create($wturl)
 $wtresponse   = $wtrequest.GetResponse()
 $realTagUrl   = $wtresponse.ResponseUri.OriginalString
 $wton         = $realTagUrl.split('/')[-1].Trim('v')
-$wtfileName   = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle"
+$wtfileName   = "Microsoft.WindowsTerminal_Win10_"+"$wton"+"_8wekyb3d8bbwe.msixbundle"
 $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 
 # check and install Windows Terminal
