@@ -24,7 +24,7 @@ $url             = 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx'
 $request         = [System.Net.WebRequest]::Create($url)
 $response        = $request.GetResponse()
 $realVclibsUrl   = $response.ResponseUri.OriginalString
-$vclibson        = $realVclibsUrl.split('/')[8].trimend('.0-Desktop')
+$vclibson        = $realVclibsUrl.split('/')[9].trimend('.0-Desktop')
 $vclibsfileName  = "Microsoft.VCLibs.x64.14.00.Desktop.appx"
 
 # check and install Desktop framework packages
