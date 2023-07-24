@@ -17,5 +17,5 @@ $OSName  = ((Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\Current
 $ProgressPreference = 'SilentlyContinue'
 $url                = 'https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3'
 Invoke-WebRequest -Uri $url -OutFile $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3.zip
-Expand-Archive -Path $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3.zip -DestinationPath .\Microsoft.UI.Xaml.2.7.3
+Expand-Archive -Path $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3.zip -DestinationPath $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3
 Add-AppPackage -Path "$env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
