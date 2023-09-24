@@ -47,7 +47,7 @@ if ([string]"$notepadoff" -ge [string]"$notepadon") {
 
     # CheckSum
     $notepadonhash = (Get-FileHash -InputStream ($webClient.OpenRead($realnotepadUrl))).Hash
-    $notepadoffhash =  (Get-FileHash -Path $env:USERPROFILE\Downloads\$notepadfilename).Hash
+    $notepadoffhash =  (Get-FileHash -Path "$env:USERPROFILE\Downloads\$notepadfilename").Hash
 
     # Compute the hash value of a stream and verify the local file
     if ($notepadonhash -eq $notepadoffhash) {
@@ -56,7 +56,9 @@ if ([string]"$notepadoff" -ge [string]"$notepadon") {
 
        Write-Host "Install Notepad++ $($($notepadon))" -ForegroundColor Green
  
-      Start-Process -FilePath $env:USERPROFILE\Downloads\$notepadfilename -ArgumentList "/S" -Wait
-       #Start-Sleep -Seconds 1
+       Start-Process -FilePath "$env:USERPROFILE\Downloads\$notepadfilename" -ArgumentList "/S" -Wait
+     
+    # ! delete downloaded files:
+       Remove-Item -Path "$env:USERPROFILE\Downloads\$notepadfilename" -Force
    }
 }
