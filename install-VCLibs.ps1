@@ -53,7 +53,10 @@ if ([string]"$vclibsoff" -ge [string]"$vclibson") {
 
        Write-Host "Install Desktop framework packages $($($vclibson))" -ForegroundColor Green
  
-       Add-AppxPackage -Path $env:USERPROFILE\Downloads\$vclibsfileName
+       Add-AppxPackage -Path "$env:USERPROFILE\Downloads\$vclibsfileName"
        Start-Sleep -Seconds 1
+
+    # ! delete downloaded files:
+       Remove-Item -Path "$env:USERPROFILE\Downloads\$vclibsfileName" -Force
    }
 }
