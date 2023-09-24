@@ -58,8 +58,11 @@ if ([string]"$wtoff" -ge [string]"$wton") {
 
        Write-Host "Install Windows Terminal $($($wton))" -ForegroundColor Green
  
-       Add-AppxPackage -Path $env:USERPROFILE\Downloads\$wtfileName
+       Add-AppxPackage -Path "$env:USERPROFILE\Downloads\$wtfileName"
        Start-Sleep -Seconds 1
+
+       # ! delete downloaded files:
+       Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }}
 
