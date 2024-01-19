@@ -13,9 +13,9 @@ $OSName  = ((Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\Current
      exit 1
 }
 
-# Download Windows UI Library 2.7.3
+# Download Windows UI Library 
 $ProgressPreference = 'SilentlyContinue'
-$url                = 'https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.3'
-Invoke-WebRequest -Uri $url -OutFile $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3.zip
-Expand-Archive -Path $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3.zip -DestinationPath $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3
-Add-AppPackage -Path "$env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.7.3\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx"
+$url                = 'https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.8'
+Invoke-WebRequest -Uri $url -OutFile $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.8.zip
+Expand-Archive -Path $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.8.zip -DestinationPath $env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.8
+Add-AppPackage -Path "$env:USERPROFILE\Downloads\Microsoft.UI.Xaml.2.8\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.8.appx"
