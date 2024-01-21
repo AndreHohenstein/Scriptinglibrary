@@ -20,7 +20,16 @@ Expand-Archive -Path $env:USERPROFILE\Downloads\$msUI -DestinationPath $Path -Fo
 $File = (Get-ChildItem -Path $Path | Where-Object {$_.Name -match "x64"}).Name
 
 Add-AppPackage -Path $Path\$File
+# check installed fonts
+$regEntryPath = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
 
+# Grab the property
+$property = (Get-ItemProperty -Path $regEntryPath).CascadiaCode
+
+# Test if property exists
+if ($null -ne $property) { Write-Host "The Font $($property) is already exists" -ForegroundColor Green }
+else 
+{
 # Download Cascadia Code font from GitHub
 $CascadiaURL        = 'https://github.com/microsoft/cascadia-code/releases/latest'
 $Cascadiarequest    = [System.Net.WebRequest]::Create($CascadiaURL)
@@ -30,22 +39,22 @@ $Cascadiaon         = $realTagUrl.split('/')[-1].Trim('v')
 $CascadiafileName   = "CascadiaCode-"+"$Cascadiaon"+".zip"
 $realCascadiaUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $CascadiafileName
 
-Write-Host "Cascadia Code font $($Cascadiaon)" -ForegroundColor Green
+Write-Host "Download Font CascadiaCode Version:`t$($Cascadiaon)" -ForegroundColor Green
 
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($realCascadiaUrl, $env:USERPROFILE+ "\Downloads\$CascadiafileName")
 
-# Expanding the font archive file
-$FontFolder = $env:USERPROFILE +"\Downloads" +"\Fonts"
-if(!(Test-Path $FontFolder)) { New-Item -ItemType Directory -Path $FontFolder | Out-Null}
-Expand-Archive -Path $env:USERPROFILE\Downloads\$CascadiafileName -DestinationPath $FontFolder -Force
 
-# Installing the Cascadia Code font
-$FontFile = $FontFolder +"\ttf" + "\CascadiaCode.ttf"
-$Font = New-Object -Com Shell.Application
-$Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
-$Destination.CopyHere($FontFile,0x10)
+$FontFolder = $env:USERPROFILE +"\Downloads" +"\Fonts" +"\ttf"
+$FontItem = Get-Item -Path $FontFolder
+$FontList = Get-ChildItem -Path "$FontItem\*" -Include ("CascadiaCode.ttf")
 
+foreach ($Font in $FontList) {
+        Write-Host 'Installing Font -' $Font.BaseName -ForegroundColor Green
+        Copy-Item $Font "C:\Windows\Fonts" -Force
+        New-ItemProperty -Name $Font.BaseName -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion\Fonts" -PropertyType string -Value $Font.name         
+ }
+}
 
 Start-Sleep -Seconds 3
 
