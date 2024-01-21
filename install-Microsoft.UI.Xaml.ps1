@@ -20,7 +20,34 @@ Expand-Archive -Path $env:USERPROFILE\Downloads\$msUI -DestinationPath $Path -Fo
 $File = (Get-ChildItem -Path $Path | Where-Object {$_.Name -match "x64"}).Name
 
 Add-AppPackage -Path $Path\$File
+
+# Download Cascadia Code font from GitHub
+$CascadiaURL        = 'https://github.com/microsoft/cascadia-code/releases/latest'
+$Cascadiarequest    = [System.Net.WebRequest]::Create($CascadiaURL)
+$Cascadiaresponse   = $Cascadiarequest.GetResponse()
+$realTagUrl         = $Cascadiaresponse.ResponseUri.OriginalString
+$Cascadiaon         = $realTagUrl.split('/')[-1].Trim('v')
+$CascadiafileName   = "CascadiaCode-"+"$Cascadiaon"+".zip"
+$realCascadiaUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $CascadiafileName
+
+Write-Host "Cascadia Code font $($Cascadiaon)" -ForegroundColor Green
+
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile($realCascadiaUrl, $env:USERPROFILE+ "\Downloads\$CascadiafileName")
+
+# Expanding the font archive file
+$FontFolder = $env:USERPROFILE +"\Downloads" +"\Fonts"
+if(!(Test-Path $FontFolder)) { New-Item -ItemType Directory -Path $FontFolder | Out-Null}
+Expand-Archive -Path $env:USERPROFILE\Downloads\$CascadiafileName -DestinationPath $FontFolder -Force
+
+# Installing the Cascadia Code font
+$FontFile = $FontFolder +"\ttf" + "\CascadiaCode.ttf"
+$Font = New-Object -Com Shell.Application
+$Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
+$Destination.CopyHere($FontFile,0x10)
+
+
 Start-Sleep -Seconds 3
 
 # ! delete downloaded files:
-Remove-Item -Path $Path,$env:USERPROFILE\Downloads\$msUI -Recurse -Confirm:$false
+Remove-Item -Path $Path,$env:USERPROFILE\Downloads\$msUI,$FontFolder,$env:USERPROFILE\Downloads\$CascadiafileName -Recurse -Confirm:$false
