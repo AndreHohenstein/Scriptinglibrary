@@ -44,7 +44,7 @@ Write-Host "Download Font CascadiaCode Version:`t$($Cascadiaon)" -ForegroundColo
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($realCascadiaUrl, $env:USERPROFILE+ "\Downloads\$CascadiafileName")
 
-
+# Install Fonts
 $FontFolder = $env:USERPROFILE +"\Downloads" +"\Fonts" +"\ttf"
 $FontItem = Get-Item -Path $FontFolder
 $FontList = Get-ChildItem -Path "$FontItem\*" -Include ("CascadiaCode.ttf")
