@@ -1,25 +1,5 @@
-try {
-# You must be running Windows 10 2004 (build >= 10.0.19041.0) or later
-# Install Windows Terminal latest Version 
-$version = [Environment]::OSVersion.Version.ToString(2)
-$build   = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion").CurrentBuild
-$OSName  = ((Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion" )  |
-               Where-Object {$_.ProductName -like "Windows 10*" -or $_.ProductName -like "Windows Server 2022*"}).ProductName
-$caption = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
-
-    if ($version -ge "10.0") {
-      if ($build -ge "19041") {
-        if ($OSName -like "Windows 10*" -or $OSName -like "Windows Server 2022*") {
-           # Current Windows Terminal version with PS Core
-           Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
-           $wtoff = (Get-AppxPackage Microsoft.WindowsTerminal).version 
-           }
-      }
-   }
-} catch {
-      Write-Host $_.Exception.Messege
-     exit 1
-}
+Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
+$wtoff = (Get-AppxPackage Microsoft.WindowsTerminal).version 
 
 # getting latest Windows Terminal version from GitHub 
 $wturl        = 'https://github.com/microsoft/terminal/releases/latest'
@@ -31,9 +11,6 @@ $wtfileName   = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle"
 $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 
 # check and install Windows Terminal
-$caption = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
-if ($caption -like "Microsoft Windows 10*" -or $caption -like "Microsoft Windows Server 2022*"){
-
 if ([string]"$wtoff" -ge [string]"$wton") {
  
     Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green 
@@ -64,7 +41,7 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        # ! delete downloaded files:
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
-}}
+}
 
 Write-Host "Please wait for the Windows Terminal Profile..." -ForegroundColor Green
 # Windows Terminal Settings Location
@@ -93,4 +70,3 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 # open Windows Terminal from Powershell
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
 Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
-
