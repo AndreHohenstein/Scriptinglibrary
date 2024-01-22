@@ -1,25 +1,5 @@
-try {
-# Install Notepad++ latest Version
-$version = [Environment]::OSVersion.Version.ToString(2)
-$build   = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion").ReleaseId
-$OSName  = ((Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion" )  |
-               Where-Object {$_.ProductName -like "Windows 10*" -or $_.ProductName -like "Windows Server*"}).ProductName
-
-    if ($version -ge "10.0") {
-      if ($build -ge "1809") {
-        if ($OSName -like "Windows 10*" -or $OSName -like "Windows Server*") {
-           # Current Notepad++ version with PS Core
-           
-           $notepadoff = (Get-ItemProperty -Path $env:ProgramFiles\Notepad++\notepad++.exe -ErrorAction SilentlyContinue).VersionInfo.FileVersion
-           }
-      }
-   }
-} catch {
-
-      Write-Host $_.Exception.Messege
-
-     exit 1
-}
+# Current Notepad++ version with PS Core
+$notepadoff = (Get-ItemProperty -Path $env:ProgramFiles\Notepad++\notepad++.exe -ErrorAction SilentlyContinue).VersionInfo.FileVersion
 
 # getting latest Notepad++ version from GitHub 
 # https://github.com/notepad-plus-plus/notepad-plus-plus
@@ -34,7 +14,7 @@ $realnotepadUrl = $realTagUrl.Replace('tag', 'download') + '/' + $notepadfilenam
 # check and install Notepad++
 if ([string]"$notepadoff" -ge [string]"$notepadon") {
  
-    Write-Host "Your Installed Notepad++ :"$($notepadoff)"is equal or greater than $($notepadon )" -ForegroundColor Green 
+    Write-Host "Your Installed Notepad++ :"$($notepadoff)"is equal or greater than $($notepadon)" -ForegroundColor Green 
 
 } else {
 
@@ -43,7 +23,7 @@ if ([string]"$notepadoff" -ge [string]"$notepadon") {
     $webClient = New-Object System.Net.WebClient
     $webClient.DownloadFile($realnotepadUrl, $env:USERPROFILE+ "\Downloads\$notepadfilename")
 
-    Start-Sleep -Seconds 5
+    Start-Sleep -Seconds 1
 
     # CheckSum
     $notepadonhash = (Get-FileHash -InputStream ($webClient.OpenRead($realnotepadUrl))).Hash
