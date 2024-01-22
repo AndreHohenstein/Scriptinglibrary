@@ -14,8 +14,8 @@ $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 if ([string]"$wtoff" -ge [string]"$wton") {
  
     Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green 
-
-} else {
+}
+ else {
 
     Write-Host "Download Windows Terminal $($wton)" -ForegroundColor Green
 
@@ -43,16 +43,19 @@ if ([string]"$wtoff" -ge [string]"$wton") {
    }
 }
 
-Write-Host "Please wait for the Windows Terminal Profile..." -ForegroundColor Green
 # Windows Terminal Settings Location
 $wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+$WSProfile = get-Content -Path $wtjsonpath | Where-Object { ($_ -match "AHCT")}
+
+if ($WSProfile) {Write-Host "The Windows Terminal Profile allready exists" -ForegroundColor Green}
+
+else {
 
 $ProgressPreference = 'SilentlyContinue' 
 # Apply my customized Windows Terminal Settings from GitHub
+Write-Host "Allpy my customized Windows Terminal Settings from GitHub" -ForegroundColor Green
 $wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/profiles.json'
 Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
-Start-Sleep -Seconds 1
-
 
 # Check if Folder for Windows Terminal Resources exists
 $wtFolfer = $env:USERPROFILE+"\pictures\wt" 
@@ -66,6 +69,10 @@ $PSCoreAvatar       = 'https://raw.githubusercontent.com/AndreHohenstein/Scripti
 Invoke-WebRequest -Uri $AzureCloudShellUrl -OutFile $env:USERPROFILE\pictures\wt\AzureCloudShell.png
 Invoke-WebRequest -Uri $BlackCloudRobotUrl -OutFile $env:USERPROFILE\pictures\wt\BlackCloudRobot.png
 Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCoreAvatar.png
+
+}
+
+Start-Sleep -Seconds 1
 
 # open Windows Terminal from Powershell
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
