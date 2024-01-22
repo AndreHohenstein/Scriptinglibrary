@@ -43,7 +43,7 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
-
+<#
 
 # Windows Terminal Settings Location
 $wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -75,7 +75,7 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 }
 
 Start-Sleep -Seconds 1
-
+#>
 
 # open Windows Terminal from Powershell
 #Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
