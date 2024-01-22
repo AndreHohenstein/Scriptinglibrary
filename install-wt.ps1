@@ -13,8 +13,10 @@ $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 # check and install Windows Terminal
 if ([string]"$wtoff" -ge [string]"$wton") {
  
-    Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green 
-} else {
+    Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green
+    }
+    else
+    {
 
     Write-Host "Download Windows Terminal $($wton)" -ForegroundColor Green
 
@@ -65,8 +67,8 @@ $PSCoreAvatar       = 'https://raw.githubusercontent.com/AndreHohenstein/Scripti
 Invoke-WebRequest -Uri $AzureCloudShellUrl -OutFile $env:USERPROFILE\pictures\wt\AzureCloudShell.png
 Invoke-WebRequest -Uri $BlackCloudRobotUrl -OutFile $env:USERPROFILE\pictures\wt\BlackCloudRobot.png
 Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCoreAvatar.png
-
 }
+
 Start-Sleep -Seconds 2
 
 # open Windows Terminal from Powershell
