@@ -43,7 +43,7 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
-<#
+
 
 # Windows Terminal Settings Location
 $wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -55,7 +55,7 @@ else {
 
 $ProgressPreference = 'SilentlyContinue' 
 # Apply my customized Windows Terminal Settings from GitHub
-Write-Host "Allpy my customized Windows Terminal Settings from GitHub" -ForegroundColor Green
+Write-Host "Apply my customized Windows Terminal Settings from GitHub" -ForegroundColor Green
 $wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/profiles.json'
 Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
 
@@ -75,8 +75,8 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 }
 
 Start-Sleep -Seconds 1
-#>
+
 
 # open Windows Terminal from Powershell
-# Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
-# Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
+#Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
+#Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
