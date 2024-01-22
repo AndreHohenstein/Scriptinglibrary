@@ -42,7 +42,6 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
-
 # Windows Terminal Profile
 $wtFolfer = $env:USERPROFILE+"\pictures\wt"
 if (Test-Path -Path $wtFolfer) {Write-Host "The Windows Terminal Profile allready exists" -ForegroundColor Green}
@@ -58,7 +57,6 @@ $wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglib
 $wtjsonpath    = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
 
-
 # Download Windows Terminal Resources
 $AzureCloudShellUrl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/AzureCloudShell.png'
 $BlackCloudRobotUrl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/BlackCloudRobot.png'
@@ -69,10 +67,7 @@ Invoke-WebRequest -Uri $BlackCloudRobotUrl -OutFile $env:USERPROFILE\pictures\wt
 Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCoreAvatar.png
 
 }
-
 Start-Sleep -Seconds 2
 
-
 # open Windows Terminal from Powershell
-Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
 Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
