@@ -36,12 +36,14 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Write-Host "Install Windows Terminal $($($wton))" -ForegroundColor Green
  
        Add-AppxPackage -Path "$env:USERPROFILE\Downloads\$wtfileName"
+       
        Start-Sleep -Seconds 1
 
        # ! delete downloaded files:
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
+<#
 
 # Windows Terminal Settings Location
 $wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
@@ -73,6 +75,7 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 }
 
 Start-Sleep -Seconds 1
+#>
 
 # open Windows Terminal from Powershell
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
