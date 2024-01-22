@@ -70,9 +70,9 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 
 }
 
-Start-Sleep -Seconds 1
+Start-Sleep -Seconds 2
 
 
 # open Windows Terminal from Powershell
-#Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
-#Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
+Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
+Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
