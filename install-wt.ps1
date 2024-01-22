@@ -14,8 +14,7 @@ $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
 if ([string]"$wtoff" -ge [string]"$wton") {
  
     Write-Host "Your Installed Windows Terminal :"$($wtoff)"is equal or greater than $($wton )" -ForegroundColor Green 
-}
- else {
+} else {
 
     Write-Host "Download Windows Terminal $($wton)" -ForegroundColor Green
 
@@ -43,25 +42,22 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
-<#
 
-# Windows Terminal Settings Location
-$wtjsonpath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
-$WSProfile = get-Content -Path $wtjsonpath | Where-Object { ($_ -match "AHCT")}
-
-if ($WSProfile) {Write-Host "The Windows Terminal Profile allready exists" -ForegroundColor Green}
+# Windows Terminal Profile
+$wtFolfer = $env:USERPROFILE+"\pictures\wt"
+if (Test-Path -Path $wtFolfer) {Write-Host "The Windows Terminal Profile allready exists" -ForegroundColor Green}
 
 else {
+# Check if Folder for Windows Terminal Resources exists
+if(!(Test-Path -Path $wtFolfer -PathType Container)){New-Item -ItemType Directory -Path $wtFolfer | Out-Null}
 
 $ProgressPreference = 'SilentlyContinue' 
 # Apply my customized Windows Terminal Settings from GitHub
 Write-Host "Apply my customized Windows Terminal Settings from GitHub" -ForegroundColor Green
 $wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/profiles.json'
+$wtjsonpath    = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
 
-# Check if Folder for Windows Terminal Resources exists
-$wtFolfer = $env:USERPROFILE+"\pictures\wt" 
-if(!(Test-Path -Path $wtFolfer -PathType Container)){New-Item -ItemType Directory -Path $wtFolfer | Out-Null}
 
 # Download Windows Terminal Resources
 $AzureCloudShellUrl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/resources/AzureCloudShell.png'
@@ -75,7 +71,7 @@ Invoke-WebRequest -Uri $PSCoreAvatar -OutFile $env:USERPROFILE\pictures\wt\PSCor
 }
 
 Start-Sleep -Seconds 1
-#>
+
 
 # open Windows Terminal from Powershell
 #Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
