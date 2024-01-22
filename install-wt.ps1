@@ -79,4 +79,4 @@ Start-Sleep -Seconds 1
 
 # open Windows Terminal from Powershell
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
-Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
+# Get-AppxPackage *terminal* | % {& Explorer.exe $('Shell:AppsFolder\' + $_.PackageFamilyName + '!' + $((Get-AppxPackageManifest $_.PackageFullName).Package.Applications.Application.id))}
