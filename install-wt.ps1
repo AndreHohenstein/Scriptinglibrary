@@ -1,3 +1,6 @@
+# OS Caption
+$caption = (Get-CimInstance -ClassName Win32_OperatingSystem).Caption
+
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
 $wtoff = (Get-AppxPackage Microsoft.WindowsTerminal).version 
 
@@ -9,6 +12,9 @@ $realTagUrl   = $wtresponse.ResponseUri.OriginalString
 $wton         = $realTagUrl.split('/')[-1].Trim('v')
 $wtfileName   = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle"
 $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $wtfileName
+
+
+if ($caption -like "Microsoft Windows 10*" -or $caption -like "Microsoft Windows Server 2022*"){
 
 # check and install Windows Terminal
 if ([string]"$wtoff" -ge [string]"$wton") {
@@ -44,6 +50,8 @@ if ([string]"$wtoff" -ge [string]"$wton") {
        Remove-Item -Path "$env:USERPROFILE\Downloads\$wtfileName" -Force
    }
 }
+}
+
 # Windows Terminal Profile
 $wtFolfer = $env:USERPROFILE+"\pictures\wt"
 if (Test-Path -Path $wtFolfer) {Write-Host "The Windows Terminal Profile allready exists" -ForegroundColor Green}
