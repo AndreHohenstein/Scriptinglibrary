@@ -1,7 +1,7 @@
 Import-Module Appx -UseWindowsPowerShell -WarningAction SilentlyContinue
 #Import-Module Appx  -WarningAction SilentlyContinue
 
-$msUiLibrary = (Get-AppxPackage Microsoft.UI.Xaml*).version
+$msUiLibrary = (Get-AppxPackage 'Microsoft.UI.Xaml.2.8').version
 
 if ($null -ne ($msUiLibrary)) { Write-Host "The  Windows UI Library $($msUiLibrary) is already exists" -ForegroundColor Green }
 else {
@@ -12,7 +12,7 @@ $wtrequest    = [System.Net.WebRequest]::Create($wturl)
 $wtresponse   = $wtrequest.GetResponse()
 $realTagUrl   = $wtresponse.ResponseUri.OriginalString
 $wton         = $realTagUrl.split('/')[-1].Trim('v')
-$msUI   = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle_Windows10_PreinstallKit.zip"
+$msUI         = "Microsoft.WindowsTerminal_"+"$wton"+"_8wekyb3d8bbwe.msixbundle_Windows10_PreinstallKit.zip"
 $realwtUrl    = $realTagUrl.Replace('tag', 'download') + '/' + $msUI
 
 $webClient = New-Object System.Net.WebClient
