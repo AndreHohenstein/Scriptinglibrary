@@ -63,6 +63,11 @@ if(!(Test-Path -Path $wtFolfer -PathType Container)){New-Item -ItemType Director
 $ProgressPreference = 'SilentlyContinue' 
 # Apply my customized Windows Terminal Settings from GitHub
 Write-Host "Apply my customized Windows Terminal Settings from GitHub" -ForegroundColor Green
+
+# Check Windows Terminal settings location 
+$WTS = $env:LOCALAPPDATA + "\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
+if(!(Test-Path -Path$WTS)){New-Item -ItemType Directory -Path $WTS}
+
 $wtprofilesurl = 'https://raw.githubusercontent.com/AndreHohenstein/Scriptinglibrary/main/WindowsTerminalSettings/profiles.json'
 $wtjsonpath    = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 Invoke-WebRequest -Uri $wtprofilesurl -OutFile $wtjsonpath
